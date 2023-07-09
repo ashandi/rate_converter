@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h1>Currency Converter</h1>
+
+                <form>
+                    <div class="form-group mt-4">
+                        <label for="amount">Amount:</label>
+                        <input type="text" class="form-control" id="amount" placeholder="Input amount..." required>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="currencyFromId">Original currency:</label>
+                        <select class="form-control" id="currencyFromId" required>
+                            <option value="">Select currency</option>
+                            {% for c in currencies %}
+                                <option value="{{ c.id }}">{{ c.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="currencyToId">Target currency:</label>
+                        <select class="form-control" id="currencyToId" required>
+                            <option value="">Select currency</option>
+                            {% for c in currencies %}
+                                <option value="{{ c.id }}">{{ c.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Convert</button>
+                        </div>
+                        <div class="alert alert-danger mt-4" role="alert" id="result-error" style="display: none"></div>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label for="result">Result:</label>
+                        <input type="text" class="form-control" id="result" readonly>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            let errAlert = $('#result-error');
+
+            $("form").submit(function (event) {
+                errAlert.hide();
+
+                let formData = {
+                    amount: $("#amount").val(),
+                    currency_from_id: $("#currencyFromId").val(),
+                    currency_to_id: $("#currencyToId").val(),
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/conversion",
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json',
+                    dataType: "json",
+                }).done(function (data) {
+                    if (data.success) {
+                        $("#result").val(data.result);
+                    } else {
+                        errAlert.text('Error! ' + data.error_message);
+                        errAlert.show();
+                    }
+                });
+
+                event.preventDefault();
+            });
+        });
+    </script>
+{% endblock %}

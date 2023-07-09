@@ -1,0 +1,9 @@
+index:
+    path: /
+    controller: App\Controller\ConversionController::index
+    methods: 'GET'
+
+conversion:
+    path: /api/conversion
+    controller: App\Controller\ConversionController::conversion
+    methods: 'POST'
