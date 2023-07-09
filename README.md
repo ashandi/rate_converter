@@ -6,11 +6,11 @@ A Service to convert currencies in each other.
 
 * Copy this repository on your local computer:
 
-`git clone https://github.com/ashandi/rate_converter.git`
+`git clone git@github.com:ashandi/rate_converter.git`
 
-* Run command below to set up the Service and database:
+* Run command below to set up the Service and database (from the project directory):
 
-`make init`
+`cd rate_converter && make init`
 
 * Load currency rates by using this command:
 
