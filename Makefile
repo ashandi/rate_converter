@@ -3,7 +3,7 @@ up:
 
 init: up
 	docker-compose exec app composer install
-	docker-compose exec app php bin/console doctrine:migration:migrate
+	docker-compose exec app php bin/console --no-interaction doctrine:migration:migrate
 
 down:
 	docker-compose down

@@ -30,9 +30,9 @@ class ConversionRequest
      */
     public function __construct(array $requestParams)
     {
-        $this->amount = $requestParams['amount'] ?? 0;
-        $this->currencyFromId = $requestParams['currency_from_id'] ?? 0;
-        $this->currencyToId = $requestParams['currency_to_id'] ?? 0;
+        $this->amount = isset($requestParams['amount']) ? floatval($requestParams['amount']) : 0;
+        $this->currencyFromId = isset($requestParams['currency_from_id']) ? intval($requestParams['currency_from_id']) : 0;
+        $this->currencyToId = isset($requestParams['currency_to_id']) ? intval($requestParams['currency_to_id']) : 0;
     }
 
     /**

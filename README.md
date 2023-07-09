@@ -22,7 +22,7 @@ open `localhost:8080` and use the web page for currency conversion.
 
 ##Tests
 
-use command `make test` to run Service tests.
+use command `docker-compose exec app make test` to run Service tests.
 
 ##Add new Rates Source
 
